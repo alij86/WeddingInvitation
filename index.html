@@ -283,13 +283,15 @@ img{max-width:100%;display:block}
   overflow:hidden;border:1px solid var(--gold-soft);
   box-shadow:0 0 0 10px rgba(182,141,64,.08),var(--shadow);
 }
-.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
 .portrait .ph{
-  width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:absolute;inset:0;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:linear-gradient(160deg,var(--cream),var(--cream-deep));color:var(--gold);gap:.4rem;
 }
 .portrait .ph .ph-name{font-family:"Great Vibes",cursive;font-size:2.6rem;color:var(--emerald)}
 .portrait .ph small{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.portrait img[src]:not([src=""])+.ph{display:none}
 .person h3{font-size:2rem;color:var(--emerald);margin:.2rem 0 .3rem}
 .person .role{letter-spacing:.26em;text-transform:uppercase;font-size:.68rem;color:var(--gold);margin-bottom:.9rem}
 .person p{color:var(--muted);font-size:.98rem;line-height:1.8}
@@ -546,7 +548,7 @@ footer small{display:block;color:rgba(233,226,212,.6);font-size:.72rem;letter-sp
         <div class="person">
           <div class="portrait">
             <!-- PHOTO: JAAFAR — paste the photo URL into src below; the placeholder hides automatically -->
-            <img src="pic3.jpeg" alt="Jaafar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img src="pic3.jpeg" alt="Jaafar" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="ph"><span class="ph-name">J</span><small>Add Jaafar's photo</small></div>
           </div>
           <h3>Jaafar</h3>
@@ -560,7 +562,7 @@ footer small{display:block;color:rgba(233,226,212,.6);font-size:.72rem;letter-sp
         <div class="person">
           <div class="portrait">
             <!-- PHOTO: JANA — paste the photo URL into src below; the placeholder hides automatically -->
-            <img src="pic1.jpeg" alt="Jana" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img src="pic1.jpeg" alt="Jana" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="ph"><span class="ph-name">J</span><small>Add Jana's photo</small></div>
           </div>
           <h3>Jana</h3>
@@ -682,6 +684,11 @@ const WEDDING = {
   heroDateText: "Thursday · 20 August 2026",
   city: "Beirut, Lebanon",                    // shown on the envelope card
 
+  couple: {
+    jaafar: "pic3.jpeg",
+    jana:   "pic1.jpeg"
+  },
+
  
   reception: {
     time:  "7:30 PM",
@@ -711,6 +718,14 @@ const WEDDING = {
   set('rsvpDeadline',WEDDING.rsvpDeadline);
   if(WEDDING.city)set('invPlace',WEDDING.city);
   const rm=document.getElementById('receptionMap');if(rm)rm.href=WEDDING.reception.map;
+  if(WEDDING.couple){
+    const setPortrait=(alt,src)=>{
+      const img=document.querySelector(`.portrait img[alt="${alt}"]`);
+      if(img&&src)img.src=src;
+    };
+    setPortrait('Jaafar',WEDDING.couple.jaafar);
+    setPortrait('Jana',WEDDING.couple.jana);
+  }
 })();
 
 /* ---- splash: envelope card ---- */
