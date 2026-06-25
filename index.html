@@ -603,15 +603,6 @@ footer small{display:block;color:rgba(233,226,212,.6);font-size:.72rem;letter-sp
     <div class="row g-4 mt-2 justify-content-center">
       <div class="col-md-6 col-lg-5 reveal">
         <div class="event-card">
-          <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg></div>
-          <h3>The Ceremony</h3>
-          <div class="event-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="ceremonyTime">5:00 PM</span></div>
-          <div class="event-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.2"/></svg><span id="ceremonyVenue">Venue Name, City</span></div>
-          <a class="map-btn" id="ceremonyMap" href="#" target="_blank" rel="noopener">View Location</a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-5 reveal d1">
-        <div class="event-card">
           <div class="event-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 11h14M6 11V7a6 6 0 0112 0v4M4 11h16v2a8 8 0 01-16 0v-2zM12 21v-2"/></svg></div>
           <h3>The Reception</h3>
           <div class="event-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="receptionTime">7:30 PM</span></div>
@@ -753,14 +744,11 @@ const WEDDING = {
 (function fill(){
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   set('heroDate',WEDDING.heroDateText);
-  set('ceremonyTime',WEDDING.ceremony.time);
-  set('ceremonyVenue',WEDDING.ceremony.venue);
   set('receptionTime',WEDDING.reception.time);
   set('receptionVenue',WEDDING.reception.venue);
   set('accNumber',WEDDING.accountNumber);
   set('rsvpDeadline',WEDDING.rsvpDeadline);
   if(WEDDING.city)set('invPlace',WEDDING.city);
-  const cm=document.getElementById('ceremonyMap');if(cm)cm.href=WEDDING.ceremony.map;
   const rm=document.getElementById('receptionMap');if(rm)rm.href=WEDDING.reception.map;
 })();
 
