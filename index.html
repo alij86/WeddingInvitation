@@ -9,7 +9,7 @@
 <!-- ============================================================
      HOW TO PERSONALISE THIS INVITATION
      1. Open the <script id="config"> block near the bottom and edit
-        the WEDDING object (date, venues, account number, etc.).
+        the WEDDING object (date, venues, etc.).
      2. To add the couple's photos, search for  PHOTO: JAAFAR  and
         PHOTO: JANA  below and replace the src="" of those <img> tags.
      3. To add gallery photos, search for  GALLERY  and swap the srcs.
@@ -322,22 +322,6 @@ img{max-width:100%;display:block}
 }
 .map-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
 
-/* ============ GIFT ============ */
-#gift{background:var(--cream);text-align:center}
-.gift-msg{max-width:680px;margin:1.4rem auto 0;color:var(--muted);font-size:1.05rem;line-height:1.85}
-.acc-box{
-  display:inline-flex;align-items:center;gap:1rem;margin-top:1.8rem;
-  background:#fff;border:1px solid var(--cream-deep);border-radius:14px;
-  padding:1rem 1.4rem;box-shadow:var(--shadow);flex-wrap:wrap;justify-content:center;
-}
-.acc-box .label{letter-spacing:.18em;text-transform:uppercase;font-size:.68rem;color:var(--muted)}
-.acc-box .num{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:600;color:var(--emerald);letter-spacing:.04em}
-.copy-btn{border:none;background:var(--emerald);color:var(--gold-soft);width:42px;height:42px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
-.copy-btn:hover{background:var(--emerald-deep)}
-.copy-btn svg{width:18px;height:18px}
-.copy-toast{margin-top:.9rem;font-size:.8rem;color:var(--gold);letter-spacing:.1em;height:1rem;opacity:0;transition:opacity .3s}
-.copy-toast.show{opacity:1}
-
 /* ============ RSVP ============ */
 #rsvp{position:relative;overflow:hidden;color:var(--ivory)}
 #rsvp .rsvp-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(160deg,var(--emerald),var(--emerald-deep))}
@@ -491,7 +475,6 @@ footer small{display:block;color:rgba(233,226,212,.6);font-size:.72rem;letter-sp
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#couple">The Couple</a></li>
         <li class="nav-item"><a class="nav-link" href="#when">When &amp; Where</a></li>
-        <li class="nav-item"><a class="nav-link" href="#gift">Gift Registry</a></li>
         <li class="nav-item"><a class="nav-link" href="#moments">Moments</a></li>
         <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn-rsvp" href="#rsvp">RSVP</a></li>
       </ul>
@@ -614,26 +597,6 @@ footer small{display:block;color:rgba(233,226,212,.6);font-size:.72rem;letter-sp
   </div>
 </section>
 
-<!-- ========== GIFT REGISTRY ========== -->
-<section id="gift" class="section">
-  <div class="container reveal">
-    <div class="eyebrow">with gratitude</div>
-    <h2 class="section-title">Gift Registry</h2>
-    <div class="divider"><span class="line"></span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18M12 8v13M12 8S9 3 6.5 5 8 8 12 8zM12 8s3-5 5.5-3S16 8 12 8z"/></svg>
-      <span class="line r"></span></div>
-    <p class="gift-msg">Your presence is the greatest gift of all. But should you wish to honour us with something more, a contribution toward our new life together would be warmly cherished.</p>
-    <div class="acc-box">
-      <span class="label">Account&nbsp;No.</span>
-      <span class="num" id="accNumber">0000 0000 0000</span>
-      <button class="copy-btn" onclick="copyAcc()" aria-label="Copy account number">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
-      </button>
-    </div>
-    <div class="copy-toast" id="copyToast">Copied to clipboard</div>
-  </div>
-</section>
-
 <!-- ========== RSVP ========== -->
 <section id="rsvp" class="section">
   <div class="rsvp-bg"></div>
@@ -726,7 +689,6 @@ const WEDDING = {
     map:   "https://maps.app.goo.gl/sphdA6rurs8a6Lb59"
   },
 
-  accountNumber: "0000 0000 0000",           // gift registry account no.
   rsvpDeadline:  "Please RSVP before 10 August 2026",
 
   // Gallery: list image URLs. Leave the array with "" entries to show
@@ -746,7 +708,6 @@ const WEDDING = {
   set('heroDate',WEDDING.heroDateText);
   set('receptionTime',WEDDING.reception.time);
   set('receptionVenue',WEDDING.reception.venue);
-  set('accNumber',WEDDING.accountNumber);
   set('rsvpDeadline',WEDDING.rsvpDeadline);
   if(WEDDING.city)set('invPlace',WEDDING.city);
   const rm=document.getElementById('receptionMap');if(rm)rm.href=WEDDING.reception.map;
@@ -855,15 +816,6 @@ function tick(){
   document.getElementById('cd-secs').textContent=pad(s);
 }
 tick();const timer=setInterval(tick,1000);
-
-/* ---- gift copy ---- */
-function copyAcc(){
-  const txt=document.getElementById('accNumber').textContent.trim();
-  const toast=document.getElementById('copyToast');
-  const done=()=>{toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800);};
-  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(done);}
-  else{const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();done();}
-}
 
 /* ---- RSVP ---- */
 const guestField=document.getElementById('guestField');
