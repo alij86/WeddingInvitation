@@ -700,7 +700,8 @@ const WEDDING = {
 
   // Gallery: list image URLs. Leave the array with "" entries to show
   // elegant placeholders, or fill them in with your photos.
-};  gallery: ["pic1.jpeg","pic3.jpeg","pic4.jpeg","image5.jpeg","image6.jpeg","image7.jpeg","image8.jpeg"]
+  gallery: ["pic1.jpeg","pic3.jpeg","pic4.jpeg","image5.jpeg","image6.jpeg","image7.jpeg","image8.jpeg"]
+};
 
 </script>
 
@@ -862,6 +863,10 @@ imgs.forEach((src,i)=>{
   const cell=document.createElement('div');cell.className='cell';
   if(src){
     cell.innerHTML=`<img src="${src}" alt="Moment ${i+1}" loading="lazy">${zoomIco}`;
+    cell.querySelector('img').addEventListener('error',function(){
+      cell.innerHTML=`<div class="ph-num">${i+1}</div>`;
+      cell.classList.add('in');
+    });
     cell.addEventListener('click',()=>openLB(i));
   }else{
     cell.innerHTML=`<div class="ph-num">${i+1}</div>`;
